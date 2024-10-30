@@ -17,4 +17,10 @@
 # include <unistd.h>
 # include <stdio.h>
 
+int	ft_printf(const char *format, ...);
+int	print_format(const char format, va_list arg);
+int	ft_printnbr(int nb);
+int	ft_printstr(char *str);
+int	ft_printchr(int c);
+
 #endif
