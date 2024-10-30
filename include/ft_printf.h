@@ -22,5 +22,6 @@ int	print_format(const char format, va_list arg);
 int	ft_printnbr(int nb);
 int	ft_printstr(char *str);
 int	ft_printchr(int c);
+int	ft_printhex(unsigned int num, const char format);
 
 #endif

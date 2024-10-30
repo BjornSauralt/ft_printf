@@ -47,7 +47,7 @@ void	ft_put_hex(unsigned int num, const char format)
 	}
 }
 
-int	ft_print_hex(unsigned int num, const char format)
+int	ft_printhex(unsigned int num, const char format)
 {
 	if (num == 0)
 		return (write(1, "0", 1));
