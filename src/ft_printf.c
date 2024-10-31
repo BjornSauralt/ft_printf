@@ -24,10 +24,14 @@ int	print_format(const char format, va_list arg)
 		i += ft_printstr(va_arg(arg, char *));
 	else if (format == 'd' || format == 'i')
 		i += ft_printnbr(va_arg(arg, int));
-	else if (format == 'x')
+	else if (format == 'x' || format == 'X')
 		i += ft_printhex(va_arg(arg, unsigned int), format);
-	else
-		i += write (1, &format, 1);
+	else if (format == '%')
+		i += ft_printpercent();
+	else if (format == 'p')
+		i += ft_printptr(va_arg(arg, unsigned long long));
+	else if (format == 'u')
+		i += ft_printunsigned(va_arg(arg, unsigned int));
 	return (i);
 }
 
@@ -49,7 +53,7 @@ int	ft_printf(const char *format, ...)
 	va_end(arg);
 	return (i);
 }
-
+/*
 int	main(void)
 {
 	int	acc;
@@ -57,4 +61,4 @@ int	main(void)
 	acc = ft_printf("Hello %s\n", "John");
 	ft_printf("exemple %d\n", acc);
 	return (0);
-}
+}*/

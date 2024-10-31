@@ -1,40 +1,79 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Makefile                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mgarsaul <mgarsaul@student.42.fr>          #+#  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-30 13:07:53 by mgarsaul          #+#    #+#             */
-/*   Updated: 2024-10-30 13:07:53 by mgarsaul         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# ************************************************************************** #
+#                                                                            #
+#                                                        :::      ::::::::   #
+#   Makefile                                           :+:      :+:    :+:   #
+#                                                    +:+ +:+         +:+     #
+#   By: mgarsaul <mgarsaul@student.42.fr>          #+#  +:+       +#+        #
+#                                                +#+#+#+#+#+   +#+           #
+#   Created: 2024-10-31 11:28:57 by mgarsaul          #+#    #+#             #
+#   Updated: 2024-10-31 11:28:57 by mgarsaul         ###   ########.fr       #
+#                                                                            #
+# ************************************************************************** #
 
-SRC_FILES =        ft_printf ft_printf_utils ft_print_ptr ft_print_unsigned ft_print_hex
+SRC_FILES =        ft_printf ft_printchr ft_printptr ft_printunsigned ft_printhex \
+		ft_printnbr ft_printpercent ft_printstr
 
 
-OBJS = $(LIBC:.c=.o)
- 
-NAME = libftprintf.a
+NAME		= libftprintf.a
+INCLUDE		= include
+LIBFT		= libft
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -I
+RM			= rm -f
+AR			= ar rcs
 
-CC = gcc
+# Colors
 
-CFLAGS = -Wall -Werror -Wextra
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
 
-%.o:        %.c
-			$(CC) $(CFLAGS) -c $< -o $@
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-$(NAME):    $(OBJS)
-			ar rsc $(NAME) $(OBJS)
+###
 
-all:        $(NAME)
+OBJF		=	.cache_exists
+
+all:		$(NAME)
+
+$(NAME):	$(OBJ)
+			@make -C $(LIBFT)
+			@cp libft/libft.a .
+			@mv libft.a $(NAME)
+			@$(AR) $(NAME) $(OBJ)
+			@echo "$(GREEN)ft_printf compiled!$(DEF_COLOR)"
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
 clean:
-			rm -f $(OBJS)
+			@$(RM) -rf $(OBJ_DIR)
+			@make clean -C $(LIBFT)
+			@echo "$(BLUE)ft_printf object files cleaned!$(DEF_COLOR)"
 
-fclean:        clean
-			rm -f $(NAME)
+fclean:		clean
+			@$(RM) -f $(NAME)
+			@$(RM) -f $(LIBFT)/libft.a
+			@echo "$(CYAN)ft_printf executable files cleaned!$(DEF_COLOR)"
+			@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 
-re:            fclean all
+re:			fclean all
+			@echo "$(GREEN)Cleaned and rebuilt everything for ft_printf!$(DEF_COLOR)"
 
-.PHONY:        all clean fclean re bonus
+norm:
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm

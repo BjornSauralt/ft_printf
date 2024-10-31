@@ -1,38 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_printpercent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgarsaul <mgarsaul@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-17 10:14:43 by mgarsaul          #+#    #+#             */
-/*   Updated: 2024-10-17 10:14:43 by mgarsaul         ###   ########.fr       */
+/*   Created: 2024-10-31 10:44:56 by mgarsaul          #+#    #+#             */
+/*   Updated: 2024-10-31 10:44:56 by mgarsaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/ft_printf.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+int	ft_printpercent(void)
 {
-	int	val;
-
-	val = 0;
-	while (s[val])
-	{
-		(*f)(val, s + val);
-		val++;
-	}
+	write(1, "%", 1);
+	return (1);
 }
-/*
-void	print_index_char(unsigned int index, char *c) 
-{
-	printf("Index: %u, Character: %c\n", index, *c);
-}
-
-int	main(void)
-{
-	char str[] = "Hello, world!";
-
-	ft_striteri(str, print_index_char);
-	return (0);
-}*/
