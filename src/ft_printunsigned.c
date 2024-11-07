@@ -13,7 +13,7 @@
 #include "../include/libft.h"
 #include "../include/ft_printf.h"
 
-int	ft_num_len(unsigned	int num)
+int	ft_numlen(unsigned	int num)
 {
 	int	len;
 
@@ -31,7 +31,7 @@ char	*ft_uitoa(unsigned int n)
 	char	*num;
 	int		len;
 
-	len = ft_num_len(n);
+	len = ft_numlen(n);
 	num = (char *)malloc(sizeof(char) * (len + 1));
 	if (!num)
 		return (0);

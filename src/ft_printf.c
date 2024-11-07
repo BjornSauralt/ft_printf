@@ -54,11 +54,9 @@ int	ft_printf(const char *format, ...)
 	return (i);
 }
 /*
-int	main(void)
+int	main(void) 
 {
-	int	acc;
-
-	acc = ft_printf("Hello %s\n", "John");
-	ft_printf("exemple %d\n", acc);
+	ft_printf("ma fonction : %p %p", (void *)0, (void *)0);
+	printf("vraie fonction : %p %p", (void *)0, (void *)0);
 	return (0);
 }*/
